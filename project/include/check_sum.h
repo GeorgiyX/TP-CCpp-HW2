@@ -3,9 +3,6 @@
 
 /** Public API */
 
-extern const int ERROR_CODE;
-extern const int SUCCESS_CODE;
-
 /**
  * Create an array on the heap with the size of "count".
  * The values in the array are not initialize.
@@ -27,7 +24,7 @@ void free_array(int *arr);
  * @param array_size - size of array
  * @param seed - initial value of random number generator
  * @param step - length of intervals, if equal 0 the array is not initialized
- * @return 0 if everything is fine, or -1 otherwise
+ * @return EXIT_SUCCESS if everything is fine, or EXIT_FAILURE otherwise
  */
 int set_values(int *arr, size_t array_size, size_t seed, size_t step);
 
