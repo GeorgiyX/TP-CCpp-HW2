@@ -1,6 +1,11 @@
 #ifndef TP_HW2_CHECK_SUM_H
 #define TP_HW2_CHECK_SUM_H
 
+/** Public API */
+
+extern const int ERROR_CODE;
+extern const int SUCCESS_CODE;
+
 /**
  * Create an array on the heap with the size of "count".
  * The values in the array are not initialize.
@@ -27,11 +32,12 @@ void free_array(int *arr);
 int set_values(int *arr, size_t array_size, size_t seed, size_t step);
 
 /**
- * Calculate the cheksum of array
+ * Calculate the check sum of array
  * @param arr - array ptr
  * @param array_size - size of array
+ * @param check_sum
  * @return checksum
  */
-int get_check_sum(int *arr, size_t array_size);
+int get_check_sum(int *arr, size_t array_size, int *check_sum);
 
 #endif //TP_HW2_CHECK_SUM_H
