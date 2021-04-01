@@ -1,0 +1,7 @@
+/.idea/
+/cmake-*/
+.DS_Store
+/build/
+/*.txt
+*.py
+*.cfg
