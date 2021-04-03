@@ -3,18 +3,59 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <stdlib.h>
+#include <limits.h>
 #include "check_sum_private.h"
 #include "check_sum.h"
 
+#define PIPE_PAIR_SIZE 2
 const size_t WRITE_INDEX = 1;
 const size_t READ_INDEX = 0;
-const size_t PIPE_PAIR_SIZE = 2;
 
 int fork_task(int *arr, size_t array_size) {
     exit(0);
 }
 
+int write_all(int fd, const char *buf, size_t size) {
+    if (!fd || !buf || !size || size >= PIPE_BUF) {
+        return EXIT_FAILURE;
+    }
+    int ret = 0;
+    while (size && ret > 0) {
+        ret = write(fd, buf, size);
+        size -= ret;
+        buf += ret;
+    }
+    return ret == -1 ? EXIT_FAILURE : EXIT_SUCCESS;
+}
 
+int read_all(int fd, char *buf, size_t size) {
+    if (!fd || !buf || !size) {
+        return EXIT_FAILURE;
+    }
+    int ret = 1;
+    while (size && ret > 0) {
+        ret = read(fd, buf, size);
+        size -=ret;
+        buf +=ret;
+    }
+    return ret == -1 ? EXIT_FAILURE : EXIT_SUCCESS;
+}
+
+#define read_all(fd, buf, size) io_all(fd, buf, size, read)
+#define write_all(fd, buf, size) io_all(fd, buf, size, (ssize_t (*)(int, void *, size_t)) write)
+
+int io_all(int fd, char *buf, size_t size, ssize_t (*io_function) (int, void *, size_t)) {
+    if (!fd || !buf || !size || size >= PIPE_BUF) {
+        return EXIT_FAILURE;
+    }
+    int ret = 1;
+    while (size && ret > 0) {
+        ret = io_function(fd, buf, size);
+        size -= ret;
+        buf += ret;
+    }
+    return ret == -1 ? EXIT_FAILURE : EXIT_SUCCESS;
+}
 
 int get_check_sum(int *arr, size_t array_size, int *check_sum) {
     if (!arr || !check_sum) { return EXIT_FAILURE; }
@@ -31,17 +72,19 @@ int get_check_sum(int *arr, size_t array_size, int *check_sum) {
     pid_t pid = 0;
     int exit_status = 0;
 
+    if (pipe(pipe_fd) == -1) {
+        return EXIT_FAILURE;
+    }
+
     while (num_of_forks < (proc_count - 1)) {
         pid = fork();
         if (pid == -1) {
-            /*Дождаться отсальные процессы и вернуть -1*/
-            exit_status = -1;
             break;
         } else if (pid == 0) {
             close(pipe_fd[READ_INDEX]);
             int check_sum_fork = 0;
             int return_code = get_check_sum_private(arr + num_of_forks * range_to_sum, range_to_sum, &check_sum_fork);
-            if (write(pipe_fd[WRITE_INDEX], &check_sum_fork, sizeof(check_sum_fork)) == -1) {
+            if (write_all(pipe_fd[WRITE_INDEX], (char *) &check_sum_fork, sizeof(check_sum_fork)) == -1) {
                 close(pipe_fd[WRITE_INDEX]);
                 exit(EXIT_FAILURE);
             }
@@ -49,10 +92,6 @@ int get_check_sum(int *arr, size_t array_size, int *check_sum) {
             exit(return_code);
         }
         ++num_of_forks;
-    }
-
-    while (1) {
-
     }
 
     if (pid == -1) {
@@ -64,7 +103,8 @@ int get_check_sum(int *arr, size_t array_size, int *check_sum) {
     }
 
 
-    if (get_check_sum_private(arr + proc_count * range_to_sum, (array_size - proc_count * range_to_sum), check_sum) == EXIT_FAILURE) {
+    if (get_check_sum_private(arr + num_of_forks * range_to_sum,
+                              (array_size - proc_count * range_to_sum), check_sum) == EXIT_FAILURE) {
         /* same as below */
     }
 
@@ -83,8 +123,6 @@ int get_check_sum(int *arr, size_t array_size, int *check_sum) {
         }
         --num_of_forks;
     }
-
-
 
 
     return get_check_sum_private(arr, array_size, check_sum);
