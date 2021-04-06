@@ -4,8 +4,8 @@
 /** Public API */
 
 /**
- * Create an array on the heap with the size of "count".
- * The values in the array are not initialize.
+ * Create an array on the heap with the size of "count". The values in the
+ * array are initialize by zeros. The array is aligned to the boundary of the L1D cache line
  * @param count - size of array
  * @return array ptr or NULL
  */
@@ -32,8 +32,8 @@ int set_values(int *arr, size_t array_size, size_t seed, size_t step);
  * Calculate the check sum of array
  * @param arr - array ptr
  * @param array_size - size of array
- * @param check_sum
- * @return checksum
+ * @param check_sum - pointer to the variable to write the checksum to
+ * @return EXIT_SUCCESS if everything is fine, or EXIT_FAILURE otherwise
  */
 int get_check_sum(int *arr, size_t array_size, int *check_sum);
 

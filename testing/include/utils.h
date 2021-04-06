@@ -13,4 +13,5 @@ namespace test_realisations {
     int getCheckSum(std::vector<int> &data);
 }
 
+long getL1LineSize();
 #endif //TP_HW1_UTILS_H

@@ -12,10 +12,13 @@ const size_t RANGE_3 = 10;
 const size_t RANGE_4 = 3;
 
 TEST(COMMON, CREATE_ARRAY) {
-    errno = 0;
     auto *arr = create_array(TestConfig::arraySize);
+    if (!arr) {
+        throw std::runtime_error("no memory");
+    }
     free(arr);
-    ASSERT_TRUE(!arr == (errno == ENOMEM));
+    auto memPtr = reinterpret_cast<uintptr_t>(arr);
+    ASSERT_EQ(memPtr % getL1LineSize(), 0);
 }
 
 TEST(COMMON, FREE_ARRAY) {

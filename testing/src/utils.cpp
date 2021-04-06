@@ -22,3 +22,11 @@ int test_realisations::getCheckSum(std::vector<int> &data) {
     });
     return checkSum;
 }
+
+long getL1LineSize() {
+    long l1d_size = sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
+    if (l1d_size == -1) {
+        l1d_size = sizeof (void*);
+    }
+    return  l1d_size;
+}
