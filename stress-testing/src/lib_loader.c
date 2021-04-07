@@ -19,8 +19,7 @@ int load_dynamic_symbols(const char *lib_path) {
         return EXIT_FAILURE;
     }
 
-    /* call dlerror to clear any old error conditions */
-    dlerror();
+    dlerror();  // call dlerror to clear any old error conditions
     *(void **) (&create_array) = dlsym(library_handle, "create_array");
     *(void **) (&free_array) = dlsym(library_handle, "free_array");
     *(void **) (&set_values) = dlsym(library_handle, "set_values");

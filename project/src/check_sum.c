@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include "check_sum.h"
 
+#include <stdio.h>
+
 int *create_array(size_t count) {
     long l1d_size = sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
     if (l1d_size == -1) {
