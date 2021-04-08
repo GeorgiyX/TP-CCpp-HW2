@@ -1,13 +1,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
+#include <sys/time.h>
 #include "utils.h"
 
 #ifdef DYNAMIC
+# include "lib_loader.h"
 # define ARG_CNT 4
 const char *few_arg_msg = "Please specify test seed, array size and path"
                           " to .so library like: %s <seed> <array size> <path/to/lib.so>";
 #else
+# include "check_sum.h"
 # define ARG_CNT 3
 const char *few_arg_msg = "Please specify test seed and array size like: %s <seed> <array size>";
 #endif
@@ -46,6 +49,35 @@ int get_elapsed_time(const struct timeval *start, const struct timeval *end, dou
     __time_t sec  = end->tv_sec - start->tv_sec;
     __suseconds_t usec = end->tv_usec - start->tv_usec;
     *result = sec + usec * MICRO;
+
+    return EXIT_SUCCESS;
+}
+
+int test_work(int *array, size_t array_size, int *check_sum, double *elapsed) {
+    if (!array || !check_sum || !elapsed) {
+        return EXIT_FAILURE;
+    }
+
+#ifdef DYNAMIC
+    if (!get_check_sum) {
+        return EXIT_FAILURE;
+    }
+#endif
+
+    struct timeval start, end;
+
+    if (gettimeofday(&start, 0)) {
+        return EXIT_FAILURE;
+    }
+    if (get_check_sum(array, array_size, check_sum)) {
+        return EXIT_FAILURE;
+    }
+    if (gettimeofday(&end, 0)) {
+        return EXIT_FAILURE;
+    }
+    if (get_elapsed_time(&start, &end, elapsed)) {
+        return EXIT_FAILURE;
+    }
 
     return EXIT_SUCCESS;
 }

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/time.h>
+#include <stdbool.h>
 #include "utils.h"
 
 #ifdef DYNAMIC
@@ -10,6 +10,7 @@
 #endif
 
 const size_t SET_VAL_STEP = 10;
+const size_t REPETITION_CNT = 20;
 
 int main(int argc, const char **argv) {
     int exit_code = EXIT_FAILURE;
@@ -26,27 +27,32 @@ int main(int argc, const char **argv) {
 #endif
 
     do {
-        struct timeval start, end;
-        if (gettimeofday(&start, 0)) { break; }
-
         int *array = create_array(array_size * sizeof(int));
         if (!array) { break; }
         if (set_values(array, array_size, seed, SET_VAL_STEP)) {
             free_array(array);
             break;
         }
+
         int check_sum = 0;
-        if (get_check_sum(array, array_size, &check_sum)) {
-            free_array(array);
+        _Bool error_in_cycle = false;
+        double elapsed = 0, cycle_elapsed = 0;
+
+        for (size_t i = 0; i < REPETITION_CNT; ++i) {
+            if (test_work(array, array_size, &check_sum, &cycle_elapsed)) {
+                error_in_cycle = true;
+                break;
+            }
+            elapsed += cycle_elapsed;
+        }
+        elapsed = elapsed / REPETITION_CNT;
+
+        free_array(array);
+        if (error_in_cycle) {
             break;
         }
-        free_array(array);
 
-        if (gettimeofday(&end, 0)) { break; }
-        double elapsed = 0;
-        if (get_elapsed_time(&start, &end, &elapsed)) { break; }
         printf("%f\n%d\n", elapsed, check_sum);
-
         exit_code = EXIT_SUCCESS;
     } while (0);
 

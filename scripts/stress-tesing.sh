@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ $# -ne 1 ]; then
-  echo "$#"
+  echo "Please specify base dir, exiting.."
   exit 1
 fi
 
@@ -10,8 +10,7 @@ SEQ_STRESS_TEST="TP-HW2-STRESS-SEQ"
 PAR_STRESS_TEST="TP-HW2-STRESS-PAR"
 ARTIFACTS_PATH="${BASE_DIR}/artifacts"
 SEEDS=(123 777 42)
-#ARRAYS_SIZES=(10 1000 2500000 250000000 1000000000)
-ARRAYS_SIZES=(10 1000)
+ARRAYS_SIZES=(10 1000 2500000 250000000 1000000000)
 
 for ARR_SIZE in ${ARRAYS_SIZES[*]}; do
   echo -e "\n\n::Array size: ${ARR_SIZE}::"
