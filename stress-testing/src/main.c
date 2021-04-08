@@ -45,7 +45,7 @@ int main(int argc, const char **argv) {
         if (gettimeofday(&end, 0)) { break; }
         double elapsed = 0;
         if (get_elapsed_time(&start, &end, &elapsed)) { break; }
-        printf("%f\n", elapsed);
+        printf("%f\n%d\n", elapsed, check_sum);
 
         exit_code = EXIT_SUCCESS;
     } while (0);

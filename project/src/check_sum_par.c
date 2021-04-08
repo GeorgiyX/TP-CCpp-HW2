@@ -20,7 +20,7 @@ int io_all(int fd, char *buf, size_t size, ssize_t (*io_function)(int, void *, s
     if (!fd || !buf || !size || size >= PIPE_BUF) {
         return EXIT_FAILURE;
     }
-    int ret = 1;
+    long ret = 1;
     while (size && ret > 0) {
         ret = io_function(fd, buf, size);
         size -= ret;
@@ -78,7 +78,7 @@ int get_check_sum(int *arr, size_t array_size, int *check_sum) {
         if (unlikely(pid == -1)) { break; }
 
         if (unlikely(get_check_sum_private(arr + num_of_forks * range_to_sum,
-                                           (array_size - proc_count * range_to_sum), check_sum))) { break; }
+                                           (array_size - num_of_forks * range_to_sum), check_sum))) { break; }
 
         int *check_sums = create_array(num_of_forks * sizeof(int));
         if (unlikely(!check_sums)) { break; }

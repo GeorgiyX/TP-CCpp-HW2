@@ -44,8 +44,8 @@ int get_elapsed_time(const struct timeval *start, const struct timeval *end, dou
     }
 
     __time_t sec  = end->tv_sec - start->tv_sec;
-    __suseconds_t msec = end->tv_usec - start->tv_usec;
-    *result = sec + msec * MICRO;
+    __suseconds_t usec = end->tv_usec - start->tv_usec;
+    *result = sec + usec * MICRO;
 
     return EXIT_SUCCESS;
 }

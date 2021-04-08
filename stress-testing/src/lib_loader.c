@@ -26,7 +26,7 @@ int load_dynamic_symbols(const char *lib_path) {
     *(void **) (&get_check_sum) = dlsym(library_handle, "get_check_sum");
     char *error_msg = dlerror();
     if (error_msg) {
-        printf("Error while loading dynamic library_handle functions: %s\n", error_msg);
+        printf("Error while loading dynamic functions: %s\n", error_msg);
         return EXIT_FAILURE;
     }
     return 0;
