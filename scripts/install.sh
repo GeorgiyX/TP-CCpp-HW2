@@ -10,4 +10,4 @@ sudo apt-get install --yes wget
 sudo apt-get install --yes unzip
 export CODECOV_TOKEN="26c004a8-b488-43b9-b095-62632b2b38f1"
 cd /usr/src/gtest && sudo mkdir build && cd build 
-sudo cmake .. && sudo make && sudo cp *.a /usr/lib
+sudo cmake .. && sudo make && sudo cp ./lib/*.a /usr/lib
