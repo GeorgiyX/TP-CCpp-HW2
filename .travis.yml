@@ -27,5 +27,5 @@ script:
   - cd $CWD
 
   - valgrind --tool=memcheck ./artifacts/TP-HW2-TESTS 777 10000 ./artifacts/libTP-HW2-LIB-PAR.so
-  - source ./scripts/stress-tesing.sh
+  - source ./scripts/stress-tesing.sh $CWD
   - bash <(curl -s https://codecov.io/bash)

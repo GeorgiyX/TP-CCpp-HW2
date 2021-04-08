@@ -12,6 +12,12 @@ ARTIFACTS_PATH="${BASE_DIR}/artifacts"
 SEEDS=(123 777 42)
 ARRAYS_SIZES=(10 1000 2500000 250000000 1000000000)
 
+echo "Hardware info:"
+echo "$(grep MemTotal /proc/meminfo)"
+echo "$(grep -m1 "model name" /proc/cpuinfo)"
+echo "Core count: $(nproc)"
+
+
 for ARR_SIZE in ${ARRAYS_SIZES[*]}; do
   echo -e "\n\n::Array size: ${ARR_SIZE}::"
   for SEED in ${SEEDS[*]}; do
