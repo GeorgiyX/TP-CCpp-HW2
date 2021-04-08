@@ -41,4 +41,3 @@ for ARR_SIZE in ${ARRAYS_SIZES[*]}; do
 done
 
 echo "Stress test SUCCESSFUL :)"
-exit 0
