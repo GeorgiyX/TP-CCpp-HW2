@@ -11,7 +11,7 @@ print_header "RUN cppcheck"
 cppcheck project/include project/src --enable=all --error-exitcode=1 -I project/include --suppress=missingIncludeSystem --check-config
 
 print_header "RUN cpplint.py"
-python2.7 ./scripts/cpplint.py --extensions=c --root=.. --headers=h --linelength=120 --filter=-whitespace/tab,-runtime/int,-legal/copyright,-build/include_subdir,-build/include,-readability/casting project/include/* project/src/*
+python ./scripts/cpplint.py --extensions=c --root=.. --headers=h --linelength=120 --filter=-whitespace/tab,-runtime/int,-legal/copyright,-build/include_subdir,-build/include,-readability/casting project/include/* project/src/*
 
 print_header "SUCCESS"
 
