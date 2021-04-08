@@ -1,11 +1,11 @@
-#ifndef TP_HW2_CHECK_SUM_H
-#define TP_HW2_CHECK_SUM_H
+#ifndef TP_CCPP_HW2_PROJECT_INCLUDE_CHECK_SUM_H_
+#define TP_CCPP_HW2_PROJECT_INCLUDE_CHECK_SUM_H_
 
 /** Public API */
 
 /**
  * Create an array on the heap with the size of "count". The values in the
- * array are initialize by zeros. The array is aligned to the boundary of the L1D cache line
+ * array are initialize by zeros. The array is aligned to the boundary of the L1D cache line.
  * @param count - size of array
  * @return array ptr or NULL
  */
@@ -37,4 +37,4 @@ int set_values(int *arr, size_t array_size, size_t seed, size_t step);
  */
 int get_check_sum(int *arr, size_t array_size, int *check_sum);
 
-#endif //TP_HW2_CHECK_SUM_H
+#endif  // TP_CCPP_HW2_PROJECT_INCLUDE_CHECK_SUM_H_

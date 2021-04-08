@@ -1,5 +1,5 @@
-#ifndef TP_HW2_CHECK_SUM_PRIVATE_H
-#define TP_HW2_CHECK_SUM_PRIVATE_H
+#ifndef TP_CCPP_HW2_PROJECT_INCLUDE_CHECK_SUM_PRIVATE_H_
+#define TP_CCPP_HW2_PROJECT_INCLUDE_CHECK_SUM_PRIVATE_H_
 
 /**
  * Simple checksum calculation function
@@ -10,4 +10,4 @@
  */
 int get_check_sum_private(const int *arr, size_t array_size, int *check_sum);
 
-#endif  // TP_HW2_CHECK_SUM_PRIVATE_H
+#endif  // TP_CCPP_HW2_PROJECT_INCLUDE_CHECK_SUM_PRIVATE_H_

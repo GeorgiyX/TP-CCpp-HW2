@@ -1,0 +1,31 @@
+dist: bionic
+sudo: required
+language: cpp
+os: linux
+
+install:
+  - CWD=$PWD
+  - source ./scripts/install.sh
+  - cd $CWD/scripts && unzip cpplint.zip && cd ..
+  
+before_install:
+  - test -n $TRAVIS_COMPILER && unset TRAVIS_COMPILER
+  - test -n $CXX && unset CXX
+  - test -n $CXX_FOR_BUILD && unset CXX_FOR_BUILD
+  - test -n $CC && unset CC
+  - test -n $CC_FOR_BUILD && unset CC_FOR_BUILD
+  - test -n $CC && unset CC
+
+before_script:
+  - source ./scripts/static-analyzers.sh
+
+script:
+  - mkdir build
+  - cd build
+  - cmake ..
+  - cmake --build .
+  - cd $CWD
+
+  - valgrind --tool=memcheck ./artifacts/TP-HW2-TESTS 777 10000 ./artifacts/libTP-HW2-LIB-PAR.so
+  - source ./scripts/stress-tesing.sh
+  - bash <(curl -s https://codecov.io/bash)
