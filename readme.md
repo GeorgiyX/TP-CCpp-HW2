@@ -1,7 +1,7 @@
 ## Что это
 Это репозиторий ДЗ#2 по курсу "Углублённое программирование на C/С++".
 
-[![Build Status](https://travis-ci.org/GeorgiyX/TP-CCpp-HW1.svg?branch=dev-homework)](https://travis-ci.org/GeorgiyX/TP-CCpp-HW1)  [![codecov](https://codecov.io/gh/GeorgiyX/TP-CCpp-HW1/branch/dev-homework/graph/badge.svg)](https://codecov.io/gh/GeorgiyX/TP-CCpp-HW1)
+[![Build Status](https://travis-ci.com/GeorgiyX/TP-CCpp-HW2.svg?branch=dev-homework)](https://travis-ci.com/GeorgiyX/TP-CCpp-HW2)  [![codecov](https://codecov.io/gh/GeorgiyX/TP-CCpp-HW2/branch/dev-homework/graph/badge.svg)](https://codecov.io/gh/GeorgiyX/TP-CCpp-HW2)
 
 ### Условия задания (Вариант #21)
 
