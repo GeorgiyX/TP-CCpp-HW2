@@ -29,7 +29,7 @@ int io_all(int fd, char *buf, size_t size, ssize_t (*io_function)(int, void *, s
     return ret == -1 ? EXIT_FAILURE : EXIT_SUCCESS;
 }
 
-void fork_work(int *arr, size_t array_size, int pipe_fd[2]) {
+void fork_work(const int *arr, size_t array_size, const int pipe_fd[2]) {
     close(pipe_fd[READ_INDEX]);
     int check_sum = 0;
     int exit_code = EXIT_FAILURE;
@@ -44,7 +44,7 @@ void fork_work(int *arr, size_t array_size, int pipe_fd[2]) {
     exit(exit_code);
 }
 
-int get_check_sum(int *arr, size_t array_size, int *check_sum) {
+int get_check_sum(const int *arr, size_t array_size, int *check_sum) {
     if (unlikely(!arr || !check_sum)) { return EXIT_FAILURE; }
 
     size_t proc_count = get_nprocs();

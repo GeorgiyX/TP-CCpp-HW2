@@ -35,6 +35,6 @@ int set_values(int *arr, size_t array_size, size_t seed, size_t step);
  * @param check_sum - pointer to the variable to write the checksum to
  * @return EXIT_SUCCESS if everything is fine, or EXIT_FAILURE otherwise
  */
-int get_check_sum(int *arr, size_t array_size, int *check_sum);
+int get_check_sum(const int *arr, size_t array_size, int *check_sum);
 
 #endif  // TP_CCPP_HW2_PROJECT_INCLUDE_CHECK_SUM_H_

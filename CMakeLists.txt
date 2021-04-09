@@ -3,7 +3,7 @@ project(TP-HW2)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
-set(COMPILERS_FLAGS "-Wall -Werror -Wpedantic -Wextra")
+set(COMPILERS_FLAGS "-Wall -Werror -Wpedantic -Wextra --coverage -O0")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILERS_FLAGS}")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COMPILERS_FLAGS}")
 set(LIB_NAME_SEQ ${PROJECT_NAME}-LIB-SEQ)
