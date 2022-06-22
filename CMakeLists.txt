@@ -1,0 +1,18 @@
+cmake_minimum_required(VERSION 3.8)
+project(TP-HW2)
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(COMPILERS_FLAGS "-Wall -Werror -Wpedantic -Wextra --coverage -O0")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILERS_FLAGS}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COMPILERS_FLAGS}")
+set(LIB_NAME_SEQ ${PROJECT_NAME}-LIB-SEQ)
+set(LIB_NAME_PAR ${PROJECT_NAME}-LIB-PAR)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/artifacts)
+set(ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/artifacts)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/artifacts)
+
+enable_testing()
+add_subdirectory(project)
+add_subdirectory(stress-testing)
+add_subdirectory(testing)
